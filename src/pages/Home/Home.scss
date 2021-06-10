@@ -1,0 +1,43 @@
+ion-content {
+  .pageContainer {
+    justify-content: center;
+    padding: 0 10px;
+
+    .pageHeading {
+      width: 50%;
+    }
+
+    ion-grid {
+      width: 100%;
+      padding: 0px;
+    }
+    ion-label {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .analyticsCard {
+      height: 100px;
+      margin: 0px;
+      padding: 5px;
+      display: flex;
+      flex-direction: column;
+
+      ion-label {
+        font-size: 0.8rem;
+        margin-bottom: 5px;
+        height: 50px;
+      }
+
+      .numbers {
+        width: 100px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 2rem;
+        background: white;
+        resize: horizontal;
+      }
+    }
+  }
+}
