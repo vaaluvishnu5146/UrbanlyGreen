@@ -1,10 +1,9 @@
 import { IonItem, IonLabel, IonInput } from "@ionic/react";
-import { callbackify } from "util";
-import "./InputBox.css";
+import "./InputBox.scss";
 
 interface InputBoxProps {
   text?: string;
-  name?: string;
+  label?: string;
   placeholder?: string;
   autofocus?: boolean;
   inputmode?:
@@ -29,29 +28,40 @@ interface InputBoxProps {
     | "url"
     | "week";
   callback: Function;
+  errorMessage?: any;
+  id: string;
 }
 
 const InputBox: React.FC<InputBoxProps> = ({
   text,
-  name,
+  label,
   placeholder,
   autofocus,
   inputmode,
   type,
   callback,
+  errorMessage,
+  id,
 }) => {
   return (
-    <IonItem>
-      <IonLabel position="stacked">{name}</IonLabel>
-      <IonInput
-        value={text}
-        placeholder={placeholder}
-        autofocus={autofocus}
-        inputmode={inputmode}
-        type={type}
-        onIonChange={(e) => callback(e?.detail?.value!)}
-      ></IonInput>
-    </IonItem>
+    <>
+      <IonLabel className="error" position="stacked">
+        {errorMessage}
+      </IonLabel>
+      <IonItem>
+        <IonLabel position="stacked">{label}</IonLabel>
+        <IonInput
+          value={text}
+          placeholder={placeholder}
+          autofocus={autofocus}
+          inputmode={inputmode}
+          type={type}
+          onIonChange={(e) => callback(e, e?.detail?.value!, id)}
+          id={id}
+          clearInput={true}
+        ></IonInput>
+      </IonItem>
+    </>
   );
 };
 
