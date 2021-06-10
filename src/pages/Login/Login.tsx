@@ -14,7 +14,7 @@ const Login: React.FC = () => {
     <IonPage>
       <IonContent fullscreen>
         <div className="pageContainer">
-          <IonText>Login</IonText>
+          <IonText>Login Page</IonText>
           <InputBox
             name="Email"
             text={getEmail}
