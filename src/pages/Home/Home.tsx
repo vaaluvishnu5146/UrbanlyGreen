@@ -24,7 +24,7 @@ import { Redirect, Route, RouteComponentProps, RouteProps } from "react-router-d
 import Cart from "../Cart/Cart";
 import Store from "../Store/Store";
 import ListingRoutes from "../Listings/ListingRoutes";
-import Dashboard from "../Dashboard/DashBoard";
+import Dashboard from "../Dashboard/Dashboard";
 
 const Home: React.FC<RouteComponentProps> = ({ match }) => {
   console.log("Home")
