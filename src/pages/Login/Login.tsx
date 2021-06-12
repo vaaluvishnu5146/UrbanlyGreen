@@ -1,5 +1,5 @@
 import React from "react";
-import { IonContent, IonPage, IonText, IonButton } from "@ionic/react";
+import { IonContent, IonPage, IonText, IonButton, IonHeader, IonToolbar, IonTitle } from "@ionic/react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 //ELEMENTS

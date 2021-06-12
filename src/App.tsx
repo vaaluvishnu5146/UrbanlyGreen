@@ -1,7 +1,6 @@
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { IonApp, IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import Dashboard from "./pages/Dashboard/Dashboard";
 import Login from "./pages/Login/Login";
 
 /* Core CSS required for Ionic components to work properly */
@@ -22,19 +21,22 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+import { useState } from "react";
+import Home from "./pages/Home/Home";
 
-const App: React.FC = () => (
+const App: React.FC = () => {
+
+  const [isAuthenticated, setAuthenticated] = useState(true);
+
+  return (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
-        <Route exact path="/login" render={(props) => <Login {...props} />} />
-        <Route exact path="/dashboard" render={(props) => <Dashboard />} />
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
+        <Route path="/home" render= {(props) => {return isAuthenticated ? <Home {...props}/> : <Login {...props}/>}}/>
+        <Redirect exact from="/" to="/home" />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
-);
+  )};
 
 export default App;

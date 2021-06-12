@@ -1,5 +1,11 @@
 {
   "name": "UrbanlyGreen",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {
+      "appId": "com.Urbanly.Greeen",
+      "appName": "Urbanly Green",
+      "webDir": "build"
+    }
+  },
   "type": "react"
 }
