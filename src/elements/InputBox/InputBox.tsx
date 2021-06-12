@@ -1,4 +1,4 @@
-import { IonItem, IonLabel, IonInput } from "@ionic/react";
+import { IonItem, IonLabel, IonInput, IonText } from "@ionic/react";
 import "./InputBox.scss";
 
 interface InputBoxProps {
@@ -45,11 +45,11 @@ const InputBox: React.FC<InputBoxProps> = ({
 }) => {
   return (
     <>
-      <IonLabel className="error" position="stacked">
-        {errorMessage}
-      </IonLabel>
+      <IonText className="error">
+        <span>{errorMessage}</span>
+      </IonText>
       <IonItem>
-        <IonLabel position="stacked">{label}</IonLabel>
+        <IonLabel position="floating">{label}</IonLabel>
         <IonInput
           value={text}
           placeholder={placeholder}

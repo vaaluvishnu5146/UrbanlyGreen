@@ -1,0 +1,19 @@
+ion-content {
+  ion-grid {
+    ion-row {
+      ion-col {
+        ion-card {
+          margin: 0px;
+          width: 100%;
+          height: max-content;
+        }
+      }
+    }
+  }
+}
+ion-button {
+  margin: 10px;
+}
+.goBackButton {
+    --background: rgb(211, 74, 74);
+}

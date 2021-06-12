@@ -1,3 +1,10 @@
 .error {
   color: red;
+  span {
+  font-size: 1rem;
+  min-height: 16px;
+  }
+}
+ion-item {
+  padding: 10px;
 }

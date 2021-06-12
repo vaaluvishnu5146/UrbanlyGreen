@@ -1,17 +1,37 @@
 import React from "react";
-import { IonCard, IonIcon } from "@ionic/react";
+import { IonBackButton, IonButtons, IonCard, IonHeader, IonIcon, IonTitle, IonToolbar } from "@ionic/react";
 import "./NavBar.scss";
-import { notificationsOutline, cartOutline } from "ionicons/icons";
+import { notificationsOutline, cartOutline, arrowBack } from "ionicons/icons";
 
-const Store: React.FC = () => {
+interface NavBarProps {
+  label?: string;
+  canGoBack?: boolean;
+}
+const NavBar: React.FC<NavBarProps> = ( props ) => {
   return (
-    <div className="navbarContainer">
-      <IonCard className="navBar">
-        <IonIcon icon={notificationsOutline} />
-        <IonIcon icon={cartOutline} />
-      </IonCard>
-    </div>
+    <IonHeader translucent>
+      <IonToolbar>
+        <IonButtons slot="start">
+          { props.canGoBack ?
+            <IonBackButton defaultHref="/home">
+              <IonIcon icon={arrowBack} />
+            </IonBackButton> : <></>
+          }
+        </IonButtons>
+        <IonTitle>{props.label}</IonTitle>
+        <IonButtons slot="end">
+          <IonIcon icon={notificationsOutline} />
+        </IonButtons>
+        <IonButtons slot="secondary">
+          <IonIcon icon={cartOutline} />
+        </IonButtons>
+      </IonToolbar>
+    </IonHeader>
   );
 };
 
-export default Store;
+NavBar.defaultProps = {
+  canGoBack: true
+}
+
+export default NavBar;
