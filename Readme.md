@@ -1,16 +1,18 @@
 # Urbanly Green
+
 [![License](https://img.shields.io/badge/License-Apache2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 Making the best use of Urban spaces for Responsible Production and Green Consumption.
 This app aims to address what an individual can do to address climate change.
 
 ## Contents
+
 - [Urbanly Green](#urbanly-green)
-    - [Contents](#contents)
-    - [Short description](#short-description)
-        - [What's the problem?](#whats-the-problem)
-        - [How can technology help?](#how-can-technology-help)
-        - [The idea](#the-idea)
+  - [Contents](#contents)
+  - [Short description](#short-description)
+    - [What's the problem?](#whats-the-problem)
+    - [How can technology help?](#how-can-technology-help)
+    - [The idea](#the-idea)
   - [Demo video](#demo-video)
   - [The architecture](#the-architecture)
   - [Long description](#long-description)
@@ -58,7 +60,7 @@ Project is currently using IBM cloud for it's Serverless APIs.
 
 See below for our proposed schedule on next steps.
 
-[Read here](./docs/urbanly-green-roadmap.docx)
+[Read here](./docs/Urbanly%20GREEN-Solution%20Roadmap.docx)
 
 ## Getting Started
 
@@ -70,12 +72,12 @@ See below for our proposed schedule on next steps.
 ### Steps to setup
 
 1. Clone this repository by using below command via terminal or downloading from Github.
-    ```git clone https://github.com/vaaluvishnu5146/UrbanlyGreen.git```
+   `git clone https://github.com/vaaluvishnu5146/UrbanlyGreen.git`
 2. Navigate to the directory UrbanlyGreen.
 3. Open up command prompt (windows) or terminal (Linux/Mac).
 4. Run following commands in sequence to install all the dependecies and run the project.
-    - ```npm install```
-    - ```npm start```
+   - `npm install`
+   - `npm start`
 5. if above steps were completed successfully. You should see the browser window opened.
 
 > while running in desktop mode the app will cover full screen.
