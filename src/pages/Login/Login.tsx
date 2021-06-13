@@ -9,7 +9,7 @@ import InputBox from "../../elements/InputBox/InputBox";
 import "./Login.scss";
 
 import { loginUser } from "../../Services/DataService";
-import { openStorage, putDataToStore } from "../../Services/UtilServices";
+import { putDataToStore } from "../../Services/UtilServices";
 import { Storage } from "@ionic/storage";
 const store = new Storage();
 interface ChildProps {
@@ -34,13 +34,9 @@ const Login: React.FC<ChildProps> = ({ setAuthenticated }) => {
         setLoginState({loading: true, showError: false, loggedIn: false});
         const user = await loginUser(values);
         if(user && user.isAuthenticated) {
-          const put = async () => {
-            await openStorage(store).then(o =>putDataToStore(store, 'user', user));
-          }
-          put().then((o) => {
+          putDataToStore('user', user);
             setLoginState({loading: false, showError: false, loggedIn: true});
             setAuthenticated({loggedIn: true, loading: false})
-        });
         } else {
           setLoginState({loading: false, showError: true, loggedIn: false});
         }

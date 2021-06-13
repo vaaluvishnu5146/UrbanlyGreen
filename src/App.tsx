@@ -23,29 +23,22 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import { useEffect, useState } from "react";
 import Home from "./pages/Home/Home";
-import { Storage } from '@ionic/storage';
-import { getDataFromStore, openStorage } from "./Services/UtilServices";
-
-const store = new Storage();
+import { Storage } from '@capacitor/storage';
+import { getDataFromStore } from "./Services/UtilServices";
 
 const App: React.FC = () => {
 
   const [authenticated, setAuthenticated] = useState({loggedIn: false, loading: true});
   console.log(authenticated)
   useEffect( () => {
-    
-    openStorage(store).then( () => {
-      store.clear().then(o =>
-      getDataFromStore(store, 'user').then((user) => {
-        if(user && user.isAuthenticated) {
+      const user = getDataFromStore('user')
+        const userData = JSON.parse(user ? user : "{}")
+        if(userData && userData.isAuthenticated) {
           console.log(user)
           setAuthenticated({loggedIn: true, loading: false})
         } else {
           setAuthenticated({loggedIn: false, loading: false})
         }
-      })
-      )
-    })
   }, [])
   return (
   <IonApp>

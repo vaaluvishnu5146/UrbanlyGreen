@@ -1,12 +1,7 @@
-import { Storage } from "@ionic/storage";
-
-export const openStorage = async (store: Storage) => {
-  await store.create();
-}
-export const getDataFromStore = async (store: Storage, param: string) => {
-  return await store.get(param);
+export const getDataFromStore = (param: string) => {
+  return localStorage.getItem(param);
 }
 
-export const putDataToStore = async (store: Storage, label: string, data: any) => {
-  await store.set(label, data);
+export const putDataToStore = (label: string, data: any) => {
+  localStorage.setItem(label, JSON.stringify(data));
 }
