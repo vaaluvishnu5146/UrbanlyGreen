@@ -39,7 +39,8 @@
     "workbox-routing": "^5.1.4",
     "workbox-strategies": "^5.1.4",
     "workbox-streams": "^5.1.4",
-    "yup": "^0.32.9"
+    "yup": "^0.32.9",
+    "axios": "0.21.1"
   },
   "scripts": {
     "start": "react-scripts start",
