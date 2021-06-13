@@ -11,7 +11,7 @@ import {
   IonItem,
   IonThumbnail,
   IonLabel,
-  IonText
+  IonSearchbar
 } from "@ionic/react";
 import NavBar from "../../components/NavBar/NavBar";
 import { State } from "ionicons/dist/types/stencil-public-runtime";
@@ -23,6 +23,7 @@ import { getAllServices } from "../../Services/DataService";
 const ServicePage: React.FC = () => {
 
   const [state, setState] = useState<ServiceState>({loading: true, data: [], error: false});
+  const [searchText, setSearchText] = useState('Services within 5 KM')
   const fetchData = async () => {
     let response: ServiceResponse = await getAllServices();
     setState({loading: false, data: response.data, error: response.error});
@@ -56,7 +57,8 @@ const ServicePage: React.FC = () => {
         message={"Unable to retrieve Listed Products"}
       />
       {!state.loading && !state.error ? 
-
+        <>
+        <IonSearchbar value={searchText} onIonChange={e => setSearchText(e.detail.value!)}></IonSearchbar>
         <IonList lines="full">
           { state.data.map((data, index) => (
           <IonItem key={index} button>
@@ -66,12 +68,12 @@ const ServicePage: React.FC = () => {
             <IonLabel>
               Business Name: {data.businessName}
               <p>Contact Person: {data.name}</p>
-              <p>Inspection Cost: {data.inspectionFee}</p>
+              <p>{`${Number(data.inspectionFee) == 0 ? 'Free Inspection' : 'Inspection Cost: '+data.inspectionFee}`}</p>
               <p>Service: {data.serviceType}</p>
             </IonLabel>
           </IonItem>
           ))}
-        </IonList> : <></> }
+        </IonList> </>: <></> }
       </IonContent>
     </IonPage>
   );
