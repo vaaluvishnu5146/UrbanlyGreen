@@ -49,7 +49,7 @@ const InputBox: React.FC<InputBoxProps> = ({
         <span>{errorMessage}</span>
       </IonText>
       <IonItem>
-        <IonLabel position="floating">{label}</IonLabel>
+        <IonLabel position="stacked">{label}</IonLabel>
         <IonInput
           value={text}
           placeholder={placeholder}
