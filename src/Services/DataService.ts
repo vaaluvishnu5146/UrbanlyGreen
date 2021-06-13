@@ -39,3 +39,34 @@ export const getListings = async (user_id: string) => {
       throw err;
     }
   };
+
+  export const getAllProducts = async () => {
+    try {
+      const response = await apiClient.get('/get-all-products');
+      console.log(response.data.data)
+      console.log({
+        status: response.status,
+        error: false,
+        data: Array<Product>(response.data.data)
+    })
+    let data: Product[] = response.data.data
+      return {
+          status: response.status,
+          error: false,
+          data: data
+      }
+    } catch (err) {
+      if (err && err.response) {
+        console.log(JSON.stringify(err))
+        let data: Product[] = []
+        return {
+            status: Number(err.response.status),
+            error: true,
+            errorMsg: String(err.response.data),
+            data: data
+        }
+      }
+      
+      throw err;
+    }
+  };
