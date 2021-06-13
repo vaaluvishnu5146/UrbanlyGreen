@@ -16,7 +16,6 @@ import {
   IonRefresher,
   IonRefresherContent
 } from "@ionic/react";
-import { chevronDownCircleOutline} from 'ionicons/icons';
 import "./Store.scss";
 import NavBar from "../../components/NavBar/NavBar";
 import { ProductState } from "../../interfaces/states.interface";
