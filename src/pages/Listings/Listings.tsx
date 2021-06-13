@@ -25,7 +25,7 @@ const Listings: React.FC = () => {
   }, []);
   return (
     <IonPage>
-      <NavBar label="Listings"/>
+      <NavBar label="My Listings"/>
       <IonContent fullscreen>
       <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
         <IonRefresherContent>

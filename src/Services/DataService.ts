@@ -11,7 +11,8 @@ const apiClient = axios.create({
   });
 export const getListings = async (user_id: string) => {
   try {
-    const response = await apiClient.get('/get-user-products?user_id='+user_id);
+    const user: any = localStorage.getItem('user')
+    const response = await apiClient.get('/get-user-products?user_id='+(user ? user.user_id : ""));
     console.log(response.data.data)
     console.log({
       status: response.status,
