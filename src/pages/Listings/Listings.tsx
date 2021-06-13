@@ -1,89 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import {addCircle} from 'ionicons/icons';
-import { IonAlert, IonContent, IonGrid, IonPage, IonRow, IonCol, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonItem, IonIcon, IonLabel, IonButton, IonList, IonFab, IonFabButton, IonHeader, IonToolbar, IonTitle, IonImg, IonButtons, IonBackButton, IonText, IonLoading } from '@ionic/react';
+import {addCircle, chevronDownCircleOutline} from 'ionicons/icons';
+import { IonRefresher, IonRefresherContent, IonAlert, IonContent, IonGrid, IonPage, IonRow, IonCol, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonItem, IonIcon, IonLabel, IonButton, IonList, IonFab, IonFabButton, IonHeader, IonToolbar, IonTitle, IonImg, IonButtons, IonBackButton, IonText, IonLoading } from '@ionic/react';
 import "./Listings.scss";
+import { RefresherEventDetail } from '@ionic/core';
 import NavBar from '../../components/NavBar/NavBar';
-import { Product } from '../../interfaces/data.interface';
 import { getListings } from '../../Services/DataService';
 import { ProductResponse } from '../../interfaces/response.interface';
-import { stat } from 'fs';
+import { ProductState } from '../../interfaces/states.interface';
 const Listings: React.FC = () => {
-  interface State {
-    loading: boolean,
-    data: Product[],
-    error: boolean
-  } 
-  // const [getListedProducts, setListedProducts] = useState([
-  //   {
-  //     "imgUrl": "/assets/images/product.png",
-  //     "name": "Product1",
-  //     "category": "CategoryA",
-  //     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit qui nam dignissimos maxime vel reiciendis consequatur, consectetur pariatur",
-  //     "price": 20
-  //   },
-  //   {
-  //     "imgUrl": "/assets/images/product.png",
-  //     "name": "Product2",
-  //     "category": "CategoryB",
-  //     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit qui nam dignissimos maxime vel reiciendis consequatur, consectetur pariatur id libero",
-  //     "price": 33
-  //   },
-  //   {
-  //     "imgUrl": "/assets/images/product.png",
-  //     "name": "Product6",
-  //     "category": "CategoryB",
-  //     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit qui nam dignissimos maxime vel ",
-  //     "price": 46
-  //   },
-  //   {
-  //     "imgUrl": "/assets/images/product.png",
-  //     "name": "Product3",
-  //     "category": "CategoryA",
-  //     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit qui nam dignissimos maxime vel reiciendis consequatur, ",
-  //     "price": 15
-  //   },
-  //   {
-  //     "imgUrl": "/assets/images/product.png",
-  //     "name": "Product4",
-  //     "category": "CategoryA",
-  //     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit qui nam dignissimos maxime vel reiciendis consequatur, consectetur",
-  //     "price": 20
-  //   },
-  //   {
-  //     "imgUrl": "/assets/images/product.png",
-  //     "name": "Product6",
-  //     "category": "CategoryD",
-  //     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit qui nam dignissimos ",
-  //     "price": 20
-  //   },
-  //   {
-  //     "imgUrl": "/assets/images/product.png",
-  //     "name": "Product6",
-  //     "category": "CategoryD",
-  //     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit qui nam dignissimos ",
-  //     "price": 20
-  //   },
-  //   {
-  //     "imgUrl": "/assets/images/product.png",
-  //     "name": "Product5",
-  //     "category": "CategoryD",
-  //     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit qui nam dignissimos ",
-  //     "price": 20
-  //   }
-  // ]);
-  const [state, setState] = useState<State>({loading: true, data: [], error: false});
-
+  const [state, setState] = useState<ProductState>({loading: true, data: [], error: false});
+  const fetchData = async () => {
+    let response: ProductResponse = await getListings("a8cf25be7d3c96d7c9ebe9d894b7bda1");
+    setState({loading: false, data: response.data, error: response.error});
+  };
+  const doRefresh = (event: CustomEvent<RefresherEventDetail>) => {
+    console.log("Refresh Complete");
+    fetchData().then( o =>
+      event.detail.complete()
+    )
+  }
   useEffect(() => {
-    const fetchData = async () => {
-      let response: ProductResponse = await getListings("a8cf25be7d3c96d7c9ebe9d894b7bda1");
-      setState({loading: false, data: response.data, error: response.error});
-    };
+    setState({loading: true, data: [], error: false});
     fetchData();
   }, []);
   return (
     <IonPage>
-      <IonContent fullscreen>
       <NavBar label="Listings"/>
+      <IonContent fullscreen>
+      <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
+        <IonRefresherContent>
+        </IonRefresherContent>
+      </IonRefresher>
       <IonLoading
         cssClass="custom-loader"
         isOpen={state.loading}
