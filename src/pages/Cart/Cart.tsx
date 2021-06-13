@@ -1,4 +1,4 @@
-import { IonContent, IonPage, IonLabel } from "@ionic/react";
+import { IonContent, IonPage, IonText } from "@ionic/react";
 import NavBar from "../../components/NavBar/NavBar";
 
 const Cart: React.FC = () => {
@@ -6,7 +6,7 @@ const Cart: React.FC = () => {
     <IonPage>
       <IonContent fullscreen>
         <NavBar label="Cart"/>
-        <IonLabel>Cart Page</IonLabel>
+        <img src="/assets/images/cart-soon.png"/>
       </IonContent>
     </IonPage>
   );

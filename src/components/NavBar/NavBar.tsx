@@ -22,9 +22,6 @@ const NavBar: React.FC<NavBarProps> = ( props ) => {
         <IonButtons slot="end">
           <IonIcon icon={notificationsOutline} />
         </IonButtons>
-        <IonButtons slot="secondary">
-          <IonIcon icon={cartOutline} />
-        </IonButtons>
       </IonToolbar>
     </IonHeader>
   );
