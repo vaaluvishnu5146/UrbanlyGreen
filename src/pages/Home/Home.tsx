@@ -47,7 +47,7 @@ const Home: React.FC<RouteComponentProps> = ({ match }) => {
               <IonIcon icon={home} />
             </IonTabButton>
             <IonTabButton tab="listings" href="/home/listings">
-              <IonLabel>Listings</IonLabel>
+              <IonLabel>My Listings</IonLabel>
               <IonIcon icon={readerOutline} />
             </IonTabButton>
             <IonTabButton tab="store" href="/home/store">
