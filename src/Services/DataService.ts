@@ -1,5 +1,6 @@
 import { Product, Services } from "../interfaces/data.interface";
 import axios from "axios";
+import { LoginResponse } from "../interfaces/response.interface";
 const apiClient = axios.create({
     baseURL: 'https://755c75d2.eu-gb.apigw.appdomain.cloud/api',
     responseType: 'json',
@@ -92,6 +93,21 @@ export const getAllServices = async () => {
       }
     }
     
+    throw err;
+  }
+};
+
+export const loginUser = async (values: any) => {
+  try {
+  const response = await apiClient.post('/login-user', values);
+  let data: LoginResponse = response.data
+    return data
+  } catch (err) {
+    if (err && err.response) {
+      console.log(JSON.stringify(err))
+      let data: LoginResponse = {error: "some error occurred"}
+      return data
+    } 
     throw err;
   }
 };
