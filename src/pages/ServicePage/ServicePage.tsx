@@ -57,9 +57,9 @@ const ServicePage: React.FC = () => {
       />
       {!state.loading && !state.error ? 
 
-        <IonList>
+        <IonList lines="full">
           { state.data.map((data, index) => (
-          <IonItem key={index}>
+          <IonItem key={index} button>
             <IonThumbnail slot="start" className="ion-no-padding">
               <img src= {"/assets/images/services.png"}/>
             </IonThumbnail>

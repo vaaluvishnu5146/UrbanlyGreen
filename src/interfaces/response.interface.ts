@@ -13,3 +13,12 @@ export interface ProductResponse extends BaseResponse {
 export interface ServiceResponse extends BaseResponse {
     data: Services[]
 }
+
+export interface LoginResponse {
+    email?: string,
+    isAuthenticated?: boolean,
+    name?: string,
+    phone?: number,
+    user_id?: string,
+    error?: string
+}

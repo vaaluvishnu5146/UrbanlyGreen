@@ -1,14 +1,23 @@
-import React from "react";
-import { IonContent, IonPage, IonText, IonButton, IonHeader, IonToolbar, IonTitle } from "@ionic/react";
+import React, { useState } from "react";
+import {IonLoading, IonToast, IonContent, IonPage, IonText, IonButton, IonHeader, IonToolbar, IonTitle, IonImg } from "@ionic/react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { Redirect } from "react-router";
 //ELEMENTS
 import InputBox from "../../elements/InputBox/InputBox";
 
 import "./Login.scss";
-import { RouteComponentProps } from "react-router-dom";
 
-const Login: React.FC<RouteComponentProps> = ({ history }) => {
+import { loginUser } from "../../Services/DataService";
+import { openStorage, putDataToStore } from "../../Services/UtilServices";
+import { Storage } from "@ionic/storage";
+const store = new Storage();
+interface ChildProps {
+  setAuthenticated: any
+}
+const Login: React.FC<ChildProps> = ({ setAuthenticated }) => {
+  console.log("came here")
+  const [loginState, setLoginState] = useState({loading: false, showError: false, loggedIn: false})
   const { errors, getFieldProps, handleSubmit, values, setFieldValue } =
     useFormik({
       initialValues: {
@@ -21,9 +30,20 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
           .max(20, "Must be 20 characters or less")
           .required("Required"),
       }),
-      onSubmit: (values) => {
-        console.log(values);
-        history.push("/dashboard");
+      onSubmit: async (values) => {
+        setLoginState({loading: true, showError: false, loggedIn: false});
+        const user = await loginUser(values);
+        if(user && user.isAuthenticated) {
+          const put = async () => {
+            await openStorage(store).then(o =>putDataToStore(store, 'user', user));
+          }
+          put().then((o) => {
+            setLoginState({loading: false, showError: false, loggedIn: true});
+            setAuthenticated({loggedIn: true, loading: false})
+        });
+        } else {
+          setLoginState({loading: false, showError: true, loggedIn: false});
+        }
       },
     });
 
@@ -34,7 +54,17 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
   return (
     <IonPage>
       <IonContent fullscreen>
+      <IonToast
+        isOpen={loginState.showError}
+        message="Incorrect Details. Couldn't Log You In"
+        duration={200}
+      />
+      <IonLoading
+        isOpen={loginState.loading}
+        message={'Logging in...'}
+      />
         <div className="pageContainer">
+        <img style={{padding: "10px"}} src="/assets/images/logo-urbanly-green.png"/>
           <IonText>Login</IonText>
           <form noValidate onSubmit={handleSubmit}>
             <InputBox

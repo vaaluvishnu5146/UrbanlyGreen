@@ -1,3 +1,6 @@
+import { Storage } from "@ionic/storage";
+import { RouteComponentProps } from "react-router-dom";
+
 export interface BaseData {
     _id?: string,
     _rev?: string

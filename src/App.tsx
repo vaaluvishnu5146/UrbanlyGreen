@@ -21,21 +21,44 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Home from "./pages/Home/Home";
+import { Storage } from '@ionic/storage';
+import { getDataFromStore, openStorage } from "./Services/UtilServices";
+
+const store = new Storage();
 
 const App: React.FC = () => {
 
-  const [isAuthenticated, setAuthenticated] = useState(true);
-
+  const [authenticated, setAuthenticated] = useState({loggedIn: false, loading: true});
+  console.log(authenticated)
+  useEffect( () => {
+    
+    openStorage(store).then( () => {
+      store.clear().then(o =>
+      getDataFromStore(store, 'user').then((user) => {
+        if(user && user.isAuthenticated) {
+          console.log(user)
+          setAuthenticated({loggedIn: true, loading: false})
+        } else {
+          setAuthenticated({loggedIn: false, loading: false})
+        }
+      })
+      )
+    })
+  }, [])
   return (
   <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route path="/home" render= {(props) => {return isAuthenticated ? <Home {...props}/> : <Login {...props}/>}}/>
-        <Redirect exact from="/" to="/home" />
-      </IonRouterOutlet>
-    </IonReactRouter>
+    {!authenticated.loading && !authenticated.loggedIn ?
+      <Login setAuthenticated={setAuthenticated}/> :
+      <IonReactRouter>
+        <IonRouterOutlet>
+          <Route path="/home" component={Home}/>
+          <Redirect exact from="/" to="/home" />
+        </IonRouterOutlet>
+      </IonReactRouter>
+    }
+    
   </IonApp>
   )};
 
