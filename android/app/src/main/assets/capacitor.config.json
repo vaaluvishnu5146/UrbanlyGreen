@@ -1,0 +1,6 @@
+{
+	"appId": "com.green.urbanly",
+	"appName": "urbanlygreen",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}
